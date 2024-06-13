@@ -15,8 +15,8 @@ class BaseApiController extends Controller
 
     const ALLPAGE = 10000;
 
-    protected $moduleKey;
-    protected $moduleName;
+    // protected $moduleKey;
+    // protected $moduleName;
 
     protected $model;
     protected $resource;
@@ -69,28 +69,28 @@ class BaseApiController extends Controller
             ])->flush();
     }
 
-    public function downloadable(Request $request)
-    {
-        $model = new $this->model;
+    // public function downloadable(Request $request)
+    // {
+    //     $model = new $this->model;
 
-        $data = $this->parseQueryRequest($request);
-        extract($data);
+    //     $data = $this->parseQueryRequest($request);
+    //     extract($data);
 
-        $query = $this->parseQuery($model, $model->getQuery(), $filters, $orders);
-        $includes = isset($request->includes) ? explode(',', $request->includes) : [];
+    //     $query = $this->parseQuery($model, $model->getQuery(), $filters, $orders);
+    //     $includes = isset($request->includes) ? explode(',', $request->includes) : [];
 
-        if (!empty($includes)) {
-            $keys = $model->filterIncludes($includes);
-            $query->with($keys);
-        }
+    //     if (!empty($includes)) {
+    //         $keys = $model->filterIncludes($includes);
+    //         $query->with($keys);
+    //     }
 
-        $model->apply($query);
+    //     $model->apply($query);
 
-        $data = $query->get();
-        $excel = new $this->excel($data);
+    //     $data = $query->get();
+    //     $excel = new $this->excel($data);
 
-        return Excel::download($excel, $this->moduleName . '_' . date('YmdHis') . '.xlsx');
-    }
+    //     return Excel::download($excel, $this->moduleName . '_' . date('YmdHis') . '.xlsx');
+    // }
 
     public function store(Request $request)
     {

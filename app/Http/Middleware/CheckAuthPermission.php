@@ -2,8 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Admin;
-use App\Models\SiteGroupAdmin;
+use App\Models\User;
 use App\Exceptions\AuthPermissionDeniedException;
 use Closure;
 
@@ -20,13 +19,8 @@ class CheckAuthPermission
         //temporary bypass
         $user = $request->user();
         switch ($type) {
-            case 'admin':
-                if (!$user instanceof Admin) {
-                    throw new AuthPermissionDeniedException();
-                }
-                break;
-            case 'site-group-admin':
-                if (!$user instanceof SiteGroupAdmin) {
+            case 'user':
+                if (!$user instanceof User) {
                     throw new AuthPermissionDeniedException();
                 }
                 break;

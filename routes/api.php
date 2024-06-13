@@ -14,5 +14,4 @@
 $version = 'v1';
 $prefix = "api.{$version}.";
 
-include __DIR__ . "/api/{$version}/admin.php";
-include __DIR__ . "/api/{$version}/site-group.php";
+include __DIR__ . "/api/{$version}/user.php";

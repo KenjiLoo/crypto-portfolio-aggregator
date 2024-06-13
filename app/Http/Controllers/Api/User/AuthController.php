@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Api\Admin;
+namespace App\Http\Controllers\Api\User;
 
-use App\Http\Controllers\Api\Admin\BaseController;
-use App\Models\Admin;
-use App\Resources\Admin\Admin as AdminResource;
+use App\Http\Controllers\Api\User\BaseController;
+use App\Models\User;
+use App\Resources\User\User as UserResource;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Cache, Hash};
@@ -15,10 +15,10 @@ class AuthController extends BaseController
     {
         parent::__construct();
 
-        $this->model = 'App\Models\Admin';
-        $this->resource = 'App\Resources\Admin';
-        $this->moduleKey = 'admin';
-        $this->moduleName = 'admins';
+        $this->model = 'App\Models\User';
+        $this->resource = 'App\Resources\User\User';
+        // $this->moduleKey = 'admin';
+        // $this->moduleName = 'admins';
     }
 
     public function login(Request $request)
@@ -31,29 +31,23 @@ class AuthController extends BaseController
         $fields = $request->only(['username', 'password']);
 
         //Check username
-        $admin = Admin::where('username', $fields['username'])->first();
+        $user = User::where('username', $fields['username'])->first();
 
         //Check password
-        if (!$admin || !Hash::check($fields['password'], $admin->password)) {
+        if (!$user || !Hash::check($fields['password'], $user->password)) {
             return api()->unauthenticated()
                 ->message(__('api.admin.invalid_credential'))
                 ->flush();
         }
 
-        if ($admin->status != Admin::STATUS_ACTIVE) {
-            return api()->unauthenticated()
-                ->message(__('api.admin.account_deactivated'))
-                ->flush();
-        }
+        $token = $user->createToken('user-token')->plainTextToken;
 
-        $token = $admin->createToken('admin-token')->plainTextToken;
-
-        $admin->last_login_at = Carbon::now();
-        $admin->save();
+        $user->last_login_at = Carbon::now();
+        $user->save();
 
         return api()->ok()
             ->data([
-                'user' => new AdminResource($admin),
+                'user' => new UserResource($user),
                 'token' => $token,
             ])->flush();
     }

@@ -66,10 +66,10 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
-        'audit' => \App\Http\Middleware\ActionAuditLog::class,
+        // 'audit' => \App\Http\Middleware\ActionAuditLog::class,
         'auth-permission' => \App\Http\Middleware\CheckAuthPermission::class,
-        'auth-status' => \App\Http\Middleware\CheckAuthStatus::class,
+        // 'auth-status' => \App\Http\Middleware\CheckAuthStatus::class,
         'horizon_auth' => \App\Http\Middleware\HorizonAuth::class,
-        'superadmin' => \App\Http\Middleware\CheckSuperadmin::class,
+        // 'superadmin' => \App\Http\Middleware\CheckSuperadmin::class,
     ];
 }
