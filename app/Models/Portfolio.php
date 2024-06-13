@@ -2,17 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Http\Request;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Hash;
-use Laravel\Sanctum\HasApiTokens;
 
-class User extends BaseAuthenticable
+class Portfolio extends BaseModel
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory;
 
-    protected $table = 'user';
+    protected $table = 'portfolio';
 
     /**
      * The attributes that are mass assignable.
@@ -20,17 +16,11 @@ class User extends BaseAuthenticable
      * @var string[]
      */
     protected $fillable = [
-        'name',
-        'username',
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password',
+        'user_id',
+        'crypto_id',
+        'crypto_name',
+        'unit',
+        'buy_price'
     ];
 
     /**
@@ -52,12 +42,13 @@ class User extends BaseAuthenticable
         parent::__construct();
 
         $this->rules = [
-            'username' => 'required|unique:user,username,[id],id|max:20',
-            'password' => 'required|min:6|max:255',
-            'name'     => 'required|max:255',
+            'user_id' => ['required', 'interger'],
+            'crypto_id' => 'required|integer',
+            'crypto_name' => 'required|max:255',
         ];
 
         $this->includable = [
+            
         ];
 
         $this->filterable = [
