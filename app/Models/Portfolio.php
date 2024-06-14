@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Portfolio extends BaseModel
 {
@@ -29,7 +30,6 @@ class Portfolio extends BaseModel
      * @var array
      */
     protected $casts = [
-        'last_login_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
@@ -48,7 +48,7 @@ class Portfolio extends BaseModel
         ];
 
         $this->includable = [
-            
+
         ];
 
         $this->filterable = [
@@ -64,16 +64,8 @@ class Portfolio extends BaseModel
         // $authuser = request()->user();
     }
 
-    public function fillFromRequest(Request $request, $data = null)
+    public function user()
     {
-        if (!$data) {
-            $data = parse_request_data($request->all());
-        }
-
-        if (isset($data['password'])) {
-            $this->password = Hash::make($data['password']);
-        }
-
-        $this->fill($data);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

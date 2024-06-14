@@ -17,10 +17,14 @@ Route::namespace('App\Http\Controllers\Api\User')
 
         Route::middleware(['auth:sanctum', 'auth-permission:user'])
             ->group(function () use ($prefix) {
-                // add_api_module_routes($prefix, 'site', [
-                //     'prefix' => 'sites',
-                //     'name' => 'sites',
-                //     'exclude' => ['delete']
-                // ]);
+                add_api_module_routes($prefix, 'portfolio', [
+                    'prefix' => 'portfolios',
+                    'name' => 'portfolios'
+                ]);
+
+                add_api_module_routes($prefix, 'watchlist', [
+                    'prefix' => 'watchlists',
+                    'name' => 'watchlists'
+                ]);
             });
     });
