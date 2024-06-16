@@ -77,7 +77,7 @@ class AuthController extends BaseController
     public function logout(Request $request)
     {
         $request->user()->tokens()->delete();
-
+        
         $currentToken = trim(str_replace('Bearer', '', $request->header('Authorization')));
         $id = explode('|', $currentToken)[0];
 

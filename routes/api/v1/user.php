@@ -28,9 +28,7 @@ Route::namespace('App\Http\Controllers\Api\User')
                     'prefix' => '',
                     'name' => '',
                 ], function () use ($prefix) {
-                    Route::post('/{action}/{id}', 'UserController@adminAction')
-                        ->where('action', 'activate|deactivate')
-                        ->middleware('audit:user')
+                    Route::post('/{action}/{id}', 'UserController@userAction')
                         ->name('user-action');
                 });
 
