@@ -15,18 +15,18 @@ return new class extends Migration
     {
         Schema::create('portfolio', function (Blueprint $table) {
             $table->id();
-            $table->bigInt('user_id')->index();
-            $table->bigInt('crypto_id')->nullable();
+            $table->unsignedBigInteger('user_id')->index();
+            $table->unsignedBigInteger('crypto_id')->nullable();
             $table->string('crypto_name', 255);
-            $table->int('unit')->default(0); 
-            $table->int('buy_price')->default(0);
+            $table->float('unit')->default(0); 
+            $table->float('buy_price')->default(0);
             $table->timestamps();
         });
 
         Schema::create('watchlist', function (Blueprint $table) {
             $table->id();
-            $table->bigInt('user_id')->index();
-            $table->bigInt('crypto_id')->nullable();
+            $table->unsignedBigInteger('user_id')->index();
+            $table->unsignedBigInteger('crypto_id')->nullable();
             $table->string('crypto_name', 255);
             $table->timestamps();
         });

@@ -20,8 +20,7 @@ class User extends BaseResource
             'name'          => $this->name,
             'meta' => [
                 'created'    => $this->created_at,
-                'updated'    => $this->updated_at,
-                'last_login' => $this->last_login_at,
+                'updated'    => $this->updated_at
             ],
         ];
 

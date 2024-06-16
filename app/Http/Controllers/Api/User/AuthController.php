@@ -42,7 +42,6 @@ class AuthController extends BaseController
 
         $token = $user->createToken('user-token')->plainTextToken;
 
-        $user->last_login_at = Carbon::now();
         $user->save();
 
         return api()->ok()

@@ -39,7 +39,6 @@ class User extends BaseAuthenticable
      * @var array
      */
     protected $casts = [
-        'last_login_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
