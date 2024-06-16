@@ -84,4 +84,14 @@ class User extends BaseAuthenticable
 
         $this->fill($data);
     }
+
+    public function portfolios()
+    {
+        return $this->hasMany(Portfolio::class, 'user_id', 'id');
+    }
+
+    public function watchlists()
+    {
+        return $this->hasMany(Watchlist::class, 'user_id', 'id');
+    }
 }

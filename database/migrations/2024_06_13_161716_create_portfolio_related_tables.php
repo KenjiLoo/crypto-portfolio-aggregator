@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->index();
             $table->unsignedBigInteger('crypto_id')->nullable();
+            $table->unsignedBigInteger('user_id')->index();
+            $table->unsignedBigInteger('crypto_id')->nullable();
             $table->string('crypto_name', 255);
             $table->float('unit')->default(0); 
             $table->float('buy_price')->default(0);
@@ -25,6 +27,8 @@ return new class extends Migration
 
         Schema::create('watchlist', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->index();
+            $table->unsignedBigInteger('crypto_id')->nullable();
             $table->unsignedBigInteger('user_id')->index();
             $table->unsignedBigInteger('crypto_id')->nullable();
             $table->string('crypto_name', 255);
