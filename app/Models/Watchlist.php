@@ -40,17 +40,6 @@ class Watchlist extends BaseModel
         parent::__construct();
 
         $this->rules = [
-            'user_id' => ['required', 'interger',
-                function ($attributes, $value, $fail) {
-                    $exists = User::where([
-                        ['id', $value]
-                    ])->exists();
-
-                    if (!$exists) {
-                        return $fail(__('api.general.invalid_user'));
-                    }
-                }
-            ],
             'crypto_id' => 'required|integer',
             'crypto_name' => 'required|max:255',
         ];
@@ -68,7 +57,17 @@ class Watchlist extends BaseModel
 
     public function apply($builder, $custom = [])
     {
-        // $authuser = request()->user();
+        $authuser = request()->user();
+
+        if ($authuser instanceof User) {
+            $builder->where('user_id', $authuser->id);
+        }
+    }
+
+    public function onBeforeSave(Request $request, $custom = [])
+    {
+        $authuser = request()->user();
+        $this->user_id = $authuser->id;
     }
 
     public function user()

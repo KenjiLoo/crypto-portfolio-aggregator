@@ -25,12 +25,9 @@ Route::namespace('App\Http\Controllers\Api\User')
                     ->name("{$prefix}.auth.logout");
 
                 add_api_module_routes($prefix, 'user', [
-                    'prefix' => '',
-                    'name' => '',
-                ], function () use ($prefix) {
-                    Route::post('/{action}/{id}', 'UserController@userAction')
-                        ->name('user-action');
-                });
+                    'prefix' => 'users',
+                    'name' => 'users',
+                ]);
 
                 add_api_module_routes($prefix, 'portfolio', [
                     'prefix' => 'portfolios',

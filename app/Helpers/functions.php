@@ -136,23 +136,20 @@ function add_api_module_routes($prefix, $moduleKey, $options, $extraRoutes = nul
             //Create
             if (!in_array('create', $options['exclude'])) {
                 Route::post('/', ['uses' => "{$controller}@{$subprefix}store"])
-                    ->name("{$moduleName}store")
-                    ->middleware("audit:{$module},create");
+                    ->name("{$moduleName}store");
             }
 
             //Update
             if (!in_array('update', $options['exclude'])) {
                 Route::put('/{id}', ['uses' => "{$controller}@{$subprefix}update"])
                     ->name("{$moduleName}update")
-                    ->where($options['where'], '\d+')
-                    ->middleware("audit:{$module},update");
+                    ->where($options['where'], '\d+');
             }
 
             //Delete
             if (!in_array('delete', $options['exclude'])) {
                 Route::delete('/{id}', ['uses' => "{$controller}@{$subprefix}delete"])
-                    ->name("{$moduleName}delete")
-                    ->middleware("audit:{$module},delete");
+                    ->name("{$moduleName}delete");
             }
 
             if ($extraRoutes) {
