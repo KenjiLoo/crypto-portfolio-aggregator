@@ -15,12 +15,28 @@ Route::namespace('App\Http\Controllers\Api\User')
 
         Route::post('/auth/login', 'AuthController@login')->name("{$prefix}.auth.login");
 
+        Route::get('/crypto/info', 'CryptoApiController@getCryptoInfo')->name("{$prefix}.crypto.info");
+
         Route::middleware(['auth:sanctum', 'auth-permission:user'])
             ->group(function () use ($prefix) {
-                // add_api_module_routes($prefix, 'site', [
-                //     'prefix' => 'sites',
-                //     'name' => 'sites',
-                //     'exclude' => ['delete']
-                // ]);
+                Route::post('/auth/change-password', 'AuthController@changePassword')
+                    ->name("{$prefix}.auth.change-password");
+                Route::post('/auth/logout', 'AuthController@logout')
+                    ->name("{$prefix}.auth.logout");
+
+                add_api_module_routes($prefix, 'user', [
+                    'prefix' => 'users',
+                    'name' => 'users',
+                ]);
+
+                add_api_module_routes($prefix, 'portfolio', [
+                    'prefix' => 'portfolios',
+                    'name' => 'portfolios'
+                ]);
+
+                add_api_module_routes($prefix, 'watchlist', [
+                    'prefix' => 'watchlists',
+                    'name' => 'watchlists'
+                ]);
             });
     });

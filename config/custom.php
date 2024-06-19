@@ -8,13 +8,5 @@ return [
     'email' => [
         'noreply' => env('NO_REPLY_EMAIL'),
         'name' => env('NO_REPLY_NAME'),
-    ],
-    'default_sites' => [
-        'MYR'
-    ],
-    'default_usd_rates' => [
-        'MYR' => 4.612323
-    ],
-    'domains' => [
     ]
 ];

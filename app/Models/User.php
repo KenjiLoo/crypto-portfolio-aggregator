@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\AdminProfile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
@@ -40,7 +39,6 @@ class User extends BaseAuthenticable
      * @var array
      */
     protected $casts = [
-        'last_login_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
@@ -58,20 +56,13 @@ class User extends BaseAuthenticable
             'name'     => 'required|max:255',
         ];
 
-        $this->includable = [
-        ];
+        $this->includable = [];
 
         $this->filterable = [
             'username', 'name'
         ];
 
-        $this->equalable = [
-        ];
-    }
-
-    public function apply($builder, $custom = [])
-    {
-        // $authuser = request()->user();
+        $this->equalable = [];
     }
 
     public function fillFromRequest(Request $request, $data = null)
@@ -85,5 +76,15 @@ class User extends BaseAuthenticable
         }
 
         $this->fill($data);
+    }
+
+    public function portfolios()
+    {
+        return $this->hasMany(Portfolio::class, 'user_id', 'id');
+    }
+
+    public function watchlists()
+    {
+        return $this->hasMany(Watchlist::class, 'user_id', 'id');
     }
 }

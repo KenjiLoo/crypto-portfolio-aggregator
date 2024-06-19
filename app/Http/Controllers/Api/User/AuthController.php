@@ -42,7 +42,6 @@ class AuthController extends BaseController
 
         $token = $user->createToken('user-token')->plainTextToken;
 
-        $user->last_login_at = Carbon::now();
         $user->save();
 
         return api()->ok()
@@ -78,7 +77,7 @@ class AuthController extends BaseController
     public function logout(Request $request)
     {
         $request->user()->tokens()->delete();
-
+        
         $currentToken = trim(str_replace('Bearer', '', $request->header('Authorization')));
         $id = explode('|', $currentToken)[0];
 

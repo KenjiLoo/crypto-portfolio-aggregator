@@ -4,7 +4,7 @@ namespace App\Resources\User;
 
 use App\Resources\BaseResource;
 
-class User extends BaseResource
+class Watchlist extends BaseResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +16,9 @@ class User extends BaseResource
     {
         $data = [
             'id'            => $this->id,
-            'username'      => $this->username,
-            'name'          => $this->name,
+            'user_id'       => $this->user_id,
+            'crypto_id'     => $this->crypto_id,
+            'crypto_name'   => $this->crypto_name,
             'meta' => [
                 'created'    => $this->created_at,
                 'updated'    => $this->updated_at
