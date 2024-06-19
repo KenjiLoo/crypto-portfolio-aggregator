@@ -56,20 +56,13 @@ class User extends BaseAuthenticable
             'name'     => 'required|max:255',
         ];
 
-        $this->includable = [
-        ];
+        $this->includable = [];
 
         $this->filterable = [
             'username', 'name'
         ];
 
-        $this->equalable = [
-        ];
-    }
-
-    public function apply($builder, $custom = [])
-    {
-        // $authuser = request()->user();
+        $this->equalable = [];
     }
 
     public function fillFromRequest(Request $request, $data = null)

@@ -44,15 +44,13 @@ class Watchlist extends BaseModel
             'crypto_name' => 'required|max:255',
         ];
 
-        $this->includable = [
-        ];
+        $this->includable = [];
 
         $this->filterable = [
             'username', 'name'
         ];
 
-        $this->equalable = [
-        ];
+        $this->equalable = [];
     }
 
     public function apply($builder, $custom = [])
