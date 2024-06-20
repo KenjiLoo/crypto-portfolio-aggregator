@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\User;
 
+use App\Resources\CryptoListing;
 use Illuminate\Http\Request;
 
 class CryptoApiController extends BaseController
@@ -18,9 +19,10 @@ class CryptoApiController extends BaseController
     {
         $url = env('CMC_API_URL');
         $cmcKey = env('CMC_API_KEY');
+        $limit = $request->limit;
         $parameters = [
         'start' => '1',
-        'limit' => '5000',
+        'limit' => $limit,
         'convert' => 'USD'
         ];
 
@@ -29,23 +31,39 @@ class CryptoApiController extends BaseController
         "X-CMC_PRO_API_KEY: {$cmcKey}"
         ];
 
-        $qs = http_build_query($parameters); // query string encode the parameters
-        $request = "{$url}?{$qs}"; // create the request URL
-        $curl = curl_init(); // Get cURL resource
+        $qs = http_build_query($parameters); 
+        $request = "{$url}?{$qs}"; 
+        $curl = curl_init(); 
 
         // Set cURL options
         curl_setopt_array($curl, array(
-        CURLOPT_URL => $request,            // set the request URL
-        CURLOPT_HTTPHEADER => $headers,     // set the headers
-        CURLOPT_RETURNTRANSFER => 1         // ask for raw response instead of bool
+        CURLOPT_URL => $request,  
+        CURLOPT_HTTPHEADER => $headers,
+        CURLOPT_RETURNTRANSFER => 1
         ));
 
-        $response = curl_exec($curl); // Send the request, save the response
+        $response = curl_exec($curl);
+        $response = json_decode($response)->data;
+
+        curl_close($curl);
+
+        //format results
+        $listing = [];
+
+        foreach ($response as $crypto) {
+            $resource = new CryptoListing();
+            $listing[] = $resource->getData($crypto); 
+        }
+
+        return $listing;
+    }
+
+    public function showCryptoList (Request $request) 
+    { 
+        $listing = $this->getCryptoInfo($request);
 
         return api()->ok()
-            ->data(json_decode($response))
+            ->data($listing)
             ->flush();
-
-        curl_close($curl); // Close request
     }
 }

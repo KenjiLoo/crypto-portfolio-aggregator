@@ -15,7 +15,7 @@ Route::namespace('App\Http\Controllers\Api\User')
 
         Route::post('/auth/login', 'AuthController@login')->name("{$prefix}.auth.login");
 
-        Route::get('/crypto/info', 'CryptoApiController@getCryptoInfo')->name("{$prefix}.crypto.info");
+        Route::get('/crypto/info', 'CryptoApiController@showCryptoList')->name("{$prefix}.crypto.info");
 
         Route::middleware(['auth:sanctum', 'auth-permission:user'])
             ->group(function () use ($prefix) {
